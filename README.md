@@ -102,3 +102,92 @@ $ sudo kubectl get nodes
 ```
 
 ![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/master_setup.png)
+
+If you encounter an error message like: "The connection to the sever localhost:8080 was refused - did you specify the right host or port?", execute the following to solve this iusse.
+```
+$ sudo cp /etc/kubernetes/admin.conf $HOME/
+$ sudo chown $(id -u):$(id -g) $HOME/admin.conf
+$ export KUBECONFIG=$HOME/admin.conf
+```
+
+12) ***Assume some slaves joined the network and they are READY"***, change slave label from <none> to worker
+```
+$ sudo kubectl label node jetson-tx2-004 node-role.kubernetes.io/worker=worker  
+```
+**jetson-tx2-004** is the device name of the slave.
+   
+13) Start service
+```
+$ ./start_node.sh
+
+```
+
+
+### B. Slave node
+1) Unplug your GPU card from your motherboard
+
+2) Install Ubuntu 16.04 to your harddisk
+
+3) Install Nvidia driver 430
+```
+$ sudo add-apt-repository ppa:graphics-drivers/ppa
+$ sudo apt update
+$ sudo apt install ubuntu-drivers-common
+$ sudo apt install nvidia-430
+
+or ./tools/install_gtx1650_430.sh
+```
+
+4) Shutdown and plug GTX1650 back to the motherboard
+
+5) Power it up and check the nvidia driver
+```
+$ nvidia-smi
+```
+
+6) Update and upgrade ubuntu
+```
+$ sudo apt-get update && sudo apt-get upgrade
+```
+
+7) Install docker
+```
+$ sudo apt -y update
+$ sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+$ sudo apt remove docker docker-engine docker.io containerd runc
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu    $(lsb_release -cs) stable"
+$ sudo apt update
+$ sudo apt -y install docker-ce docker-ce-cli containerd.io
+$ sudo usermod -aG docker vincent
+$ newgrp docker
+$ docker version
+```
+8) Install kubernetes k8s
+```
+$ cd tools/
+$ sudo chmod +x install_k8s.sh
+$ sudo ./install.sh
+```
+
+9) Permanently disable swap
+```
+$ sudo swapoff -a
+$ sudo gedit /etc/fstab
+Comment the lines with "swap"
+$ sudo reboot
+$ sudo swapoff -a
+```
+
+![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/swap_disable.png)
+
+10) Join clusters
+```
+$ ./tools/join_cluster.sh
+```
+
+11) Start service
+```
+$ ./start_node.sh
+
+```

@@ -1,0 +1,56 @@
+@@@ Kubernetes Slave Node Installation Guidelines
+@@@ VincentChan
+
+1) Unplug your GPU card from your motherboard
+
+2) Install Ubuntu 16.04 to your harddisk
+
+3) Install Nvidia driver 430
+   $ sudo add-apt-repository ppa:graphics-drivers/ppa
+   $ sudo apt update
+   $ sudo apt install ubuntu-drivers-common
+   $ sudo apt install nvidia-430
+
+   or ./tools/install_gtx1650_430.sh
+
+4) Shutdown and plug GTX1650 back to the motherboard
+
+5) Power it up and check the nvidia driver
+   $ nvidia-smi
+
+6) Update and upgrade ubuntu
+   $ sudo apt-get update && sudo apt-get upgrade
+
+7) Install docker
+   $ sudo apt -y update
+   $ sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+   $ sudo apt remove docker docker-engine docker.io containerd runc
+   $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu    $(lsb_release -cs) stable"
+   $ sudo apt update
+   $ sudo apt -y install docker-ce docker-ce-cli containerd.io
+   $ sudo usermod -aG docker vincent
+   $ newgrp docker
+   $ docker version
+
+8) Install kubernetes k8s
+   $ cd tools/
+   $ sudo chmod +x install_k8s.sh
+   $ sudo ./install.sh
+
+9) Permanently disable swap
+   $ sudo swapoff -a
+   $ sudo gedit /etc/fstab
+   Comment the lines with "swap"
+   $ sudo reboot
+   $ sudo swapoff -a
+
+9) Change host name (to be systemetic)
+   $ sudo gedit /etc/hostname  -> change to your new hostname
+   $ sudo gedit /etc/hosts  -> change the line with 127.0.0.1 to your new hostname
+   $ sudo reboot
+
+10) Join clusers
+   $ ./tools/join_cluster.sh
+
+

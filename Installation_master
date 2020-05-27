@@ -97,4 +97,11 @@
    $ sudo kubectl get nodes
 
 18) Install metrices-server service
-  
+   $ cd metrics-server-release-0.3
+   $ sudo kubectl apply -f deploy/1.8+/
+
+   Wait a short period of time,then 
+   $ kubectl top pod --all-namespaces
+   $ kubectl top node
+
+   You should get cpu/memory resources list

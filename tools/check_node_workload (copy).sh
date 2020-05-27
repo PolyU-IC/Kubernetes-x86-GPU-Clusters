@@ -1,0 +1,2 @@
+sudo kubectl top node
+

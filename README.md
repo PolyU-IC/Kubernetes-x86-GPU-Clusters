@@ -266,3 +266,20 @@ The container inside a worker is able to discover the GPU on its own device.
 
 ![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/gpu_tensorflow.png)
 
+### Resources Monitoring
+The following operation has to be done in the **master** node.
+```
+$ cd metrics-server-release-0.3
+$ sudo kubectl apply -f deploy/1.8+/
+
+Wait a short period of time,then 
+$ kubectl top pod --all-namespaces
+$ kubectl top node
+```
+You should be able to see a list with the resources allocation among different services/pods.
+Meanwhile, the dashboard should be in the following:
+
+![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/metrices_server.png)
+
+![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/metrices_server_1.png)
+

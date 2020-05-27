@@ -261,12 +261,58 @@ $ ./start_node.sh
 
 ```
 
-### GTX1650 GPU Resources in K8S
+### C. Kubernetes Dashboard
+Please perform the followin operation in **MASTER** and refer to ***Installation_Dashboard***.
+Here is the reference url: https://kubernetes.io/zh/docs/tasks/access-application-cluster/web-ui-dashboard/
+
+1) Apply official ymal
+```
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+```
+
+2) Start kubectl proxy. **Do not close this terminal after execution**
+```
+$ sudo kubectl proxy
+```
+![image]()
+
+3) Open browser in **MASTER**
+```
+$ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+```
+![image]()
+
+You will be able see a login page.
+
+4) In order to get the token, it is neccesary to add a admin to manage the entire cluster.
+```
+$ sudo kubectl create -f admin-role.ymal
+```
+The admin-role.ymal can be found in **YMAL-Config/services/**
+
+5) Get admin-token secret name
+```
+$ sudo kubectl -n kube-system get secret|grep admin-token
+```
+6) Get token value
+```
+$ sudo kubectl -n kube-system describe secret admin-token-sm4pn
+```
+***sm4pn*** should be your corresponding name
+
+![image]()
+
+7) Copy the token and login.
+![image]()
+
+
+
+### D. GTX1650 GPU Resources in K8S
 The container inside a worker is able to discover the GPU on its own device.
 
 ![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/gpu_tensorflow.png)
 
-### Resources Monitoring
+### E. Resources Monitoring
 The following operation has to be done in the **master** node.
 ```
 $ cd metrics-server-release-0.3

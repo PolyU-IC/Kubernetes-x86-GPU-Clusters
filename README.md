@@ -261,3 +261,8 @@ $ ./start_node.sh
 
 ```
 
+### GTX1650 GPU Resources in K8S
+The container inside a worker is able to discover the GPU on its own device.
+
+![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/gpu_tensorflow.png)
+

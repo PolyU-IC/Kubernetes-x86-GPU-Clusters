@@ -329,6 +329,6 @@ Meanwhile, the dashboard should be in the following:
 
 ![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/metrices_server_1.png)
 
-### F. Customized Image vincent51689453/jetson-deeplearning
+### F. Customized Image vincent51689453/kuber-deeplearning-tf
 https://hub.docker.com/r/vincent51689453/kuber-deeplearning-tf
 

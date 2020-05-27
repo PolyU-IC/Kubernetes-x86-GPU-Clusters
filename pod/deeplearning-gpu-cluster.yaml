@@ -7,7 +7,10 @@ spec:
   hostNetwork: true
   containers:
     - name: tensorflow-gpu
-      image: vincent51689453/nvidia-tensorflow:v1.0.0
+      image: nvcr.io/nvidia/tensorflow:19.07-py3
+      resources:
+        limits:
+          nvidia.com/gpu: 1 # requesting 1 GPU
       command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
       ports:
         - containerPort: 8888

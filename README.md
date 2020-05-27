@@ -57,46 +57,14 @@ $ sudo usermod -aG docker vincent
 $ newgrp docker
 $ docker version
 ```
-8) Install nvidia-docker version 2.0
-https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)#prerequisites
-```
- $ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
- $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
- $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
- $ sudo apt-get update
- $ sudo apt-get install nvidia-docker2
- Choose "Y" for daemon.json
- $ sudo pkill -SIGHUP dockerd
-```
-
-9) Install nvidia-container-runtime
-https://github.com/nvidia/nvidia-container-runtime#installation
-```
-$ curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
-$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-$ curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
-$ sudo apt-get update
-$ sudo apt-get install nvidia-container-runtime
-```
-
-10) Configure docker runtime
-Replace the **/etc/docker/daemon.json** with **daemon.json** in this repository
-```
-$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-$ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-$ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-$ sudo apt-get update && sudo apt-get install -y nvidia-docker2
-$ sudo systemctl restart docker
-```
-
-11) Install kubernetes k8s
+8) Install kubernetes k8s
 ```
 $ cd tools/
 $ sudo chmod +x install_k8s.sh
 $ sudo ./install.sh
 ```
 
-12) Permanently disable swap
+9) Permanently disable swap
 ```
 $ sudo swapoff -a
 $ sudo gedit /etc/fstab
@@ -107,7 +75,7 @@ $ sudo swapoff -a
 
 ![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/swap_disable.png)
 
-13) Initialize cluster
+9) Initialize cluster
 ```
    $ sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 ```
@@ -117,23 +85,18 @@ In case you want to reset,
 ```   
 ![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/cluster_init.png)
 
-14) Follow the instructions of kuberentes
+10) Follow the instructions of kuberentes
 ```
 $ mkdir -p $HOME/.kube
 $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-15) Apply flannel
+10) Apply flannel
 ```
 $ sudo kubectl create -f https://raw.githubusercontent.com/coreos/flannel/v0.12.0/Documentation/kube-flannel.yml
 ```
-16) Enabling GPU support in kubernetes
-```
-$ sudo kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta6/nvidia-device-plugin.yml
-```
-
-17) Check kubernetes nodes
+11) Check kubernetes nodes
 ```
 $ sudo kubectl get nodes
 ```
@@ -147,13 +110,13 @@ $ sudo chown $(id -u):$(id -g) $HOME/admin.conf
 $ export KUBECONFIG=$HOME/admin.conf
 ```
 
-18) ***Assume some slaves joined the network and they are READY"***, change slave label from <none> to worker
+12) ***Assume some slaves joined the network and they are READY"***, change slave label from <none> to worker
 ```
 $ sudo kubectl label node jetson-tx2-004 node-role.kubernetes.io/worker=worker  
 ```
 **jetson-tx2-004** is the device name of the slave.
    
-19) Start service
+13) Start service
 ```
 $ ./start_node.sh
 
@@ -200,45 +163,14 @@ $ sudo usermod -aG docker vincent
 $ newgrp docker
 $ docker version
 ```
-8) Install nvidia-docker version 2.0
-https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)#prerequisites
-```
- $ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
- $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
- $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
- $ sudo apt-get update
- $ sudo apt-get install nvidia-docker2
- Choose "Y" for daemon.json
- $ sudo pkill -SIGHUP dockerd
-```
-
-9) Install nvidia-container-runtime
-https://github.com/nvidia/nvidia-container-runtime#installation
-```
-$ curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
-$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-$ curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
-$ sudo apt-get update
-$ sudo apt-get install nvidia-container-runtime
-```
-
-10) Configure docker runtime
-Replace the **/etc/docker/daemon.json** with **daemon.json** in this repository
-```
-$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-$ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-$ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-$ sudo apt-get update && sudo apt-get install -y nvidia-docker2
-$ sudo systemctl restart docker
-
-11) Install kubernetes k8s
+8) Install kubernetes k8s
 ```
 $ cd tools/
 $ sudo chmod +x install_k8s.sh
 $ sudo ./install.sh
 ```
 
-12) Permanently disable swap
+9) Permanently disable swap
 ```
 $ sudo swapoff -a
 $ sudo gedit /etc/fstab
@@ -249,12 +181,12 @@ $ sudo swapoff -a
 
 ![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/swap_disable.png)
 
-13) Join clusters
+10) Join clusters
 ```
 $ ./tools/join_cluster.sh
 ```
 
-14) Start service
+11) Start service
 ```
 $ ./start_node.sh
 

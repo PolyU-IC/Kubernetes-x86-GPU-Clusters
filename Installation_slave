@@ -33,24 +33,54 @@
    $ newgrp docker
    $ docker version
 
-8) Install kubernetes k8s
+8) Install nvidia-docker version 2.0
+
+   https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)#prerequisites
+
+   $ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+   $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+   $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+   $ sudo apt-get update
+   $ sudo apt-get install nvidia-docker2
+   Choose "Y" for daemon.json
+   $ sudo pkill -SIGHUP dockerd
+
+9) Install nvidia-container-runtime
+
+   https://github.com/nvidia/nvidia-container-runtime#installation
+
+   $ curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
+   $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+   $ curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+   $ sudo apt-get update
+   $ sudo apt-get install nvidia-container-runtime
+
+10) Configure docker runtime
+   $ replace the /etc/docker/daemon.json with the one in repository
+   $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+   $ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+   $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+   $ sudo apt-get update && sudo apt-get install -y nvidia-docker2
+   $ sudo systemctl restart docker
+
+11) Install kubernetes k8s
    $ cd tools/
    $ sudo chmod +x install_k8s.sh
    $ sudo ./install.sh
 
-9) Permanently disable swap
+12) Permanently disable swap
    $ sudo swapoff -a
    $ sudo gedit /etc/fstab
    Comment the lines with "swap"
    $ sudo reboot
    $ sudo swapoff -a
 
-9) Change host name (to be systemetic)
+13) Change host name (to be systemetic)
    $ sudo gedit /etc/hostname  -> change to your new hostname
    $ sudo gedit /etc/hosts  -> change the line with 127.0.0.1 to your new hostname
    $ sudo reboot
 
-10) Join clusers
+14) Join clusers
    $ ./tools/join_cluster.sh
 
 

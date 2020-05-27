@@ -95,3 +95,6 @@
 
 17) Check kubernetes nodes
    $ sudo kubectl get nodes
+
+18) Install metrices-server service
+  

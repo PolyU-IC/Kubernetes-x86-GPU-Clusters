@@ -274,13 +274,13 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0
 ```
 $ sudo kubectl proxy
 ```
-![image]()
+![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/proxy.png)
 
 3) Open browser in **MASTER**
 ```
 $ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 ```
-![image]()
+![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/Kubernetes_Dashboard.png)
 
 You will be able see a login page.
 
@@ -300,10 +300,10 @@ $ sudo kubectl -n kube-system describe secret admin-token-sm4pn
 ```
 ***sm4pn*** should be your corresponding name
 
-![image]()
+![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/token.png)
 
 7) Copy the token and login.
-![image]()
+![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/token_request.png)
 
 
 
@@ -328,4 +328,7 @@ Meanwhile, the dashboard should be in the following:
 ![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/metrices_server.png)
 
 ![image](https://github.com/vincent51689453/Kubernetes-x86-GPU-Clusters/blob/master/Github_Image/metrices_server_1.png)
+
+### F. Customized Image vincent51689453/jetson-deeplearning
+https://hub.docker.com/r/vincent51689453/kuber-deeplearning-tf
 

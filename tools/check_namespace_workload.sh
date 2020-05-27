@@ -1,1 +1,1 @@
-sudo top --all-namespaces
+sudo kubectl top pods --all-namespaces
